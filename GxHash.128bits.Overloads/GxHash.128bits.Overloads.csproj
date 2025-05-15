@@ -18,10 +18,13 @@
         <RepositoryUrl>https://github.com/viruseg/GxHash.128bits.Overloads</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GxHash, hash SIMD hash, fast hash, c-sharp, C#,</PackageTags>
-        <Description>GxHash.128bits.Overloads is an extension library for GxHash that provides a comprehensive set of overloads to compute 128-bit hashes on various data types: files, string, ReadOnlySpan(T), Span(T), T[], Stream.</Description>
-        <PackageReleaseNotes>1.0.0: First version</PackageReleaseNotes>
-        <Version>1.0.2</Version>
-        <AssemblyVersion>1.0.2</AssemblyVersion>
+        <Description>GxHash.128bits.Overloads is an extension library for GxHash that provides a comprehensive set of overloads to compute 128-bit hashes on various data types: files, string, ReadOnlySpan(T), Span(T), T[], List(T), Stream.</Description>
+        <PackageReleaseNotes>
+            1.1.0: Added overloads for List.
+            1.0.0: First version
+        </PackageReleaseNotes>
+        <Version>1.1.0</Version>
+        <AssemblyVersion>1.1.0</AssemblyVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

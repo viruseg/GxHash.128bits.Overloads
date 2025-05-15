@@ -1,6 +1,6 @@
 # GxHash.128bits.Overloads
 
-**GxHash.128bits.Overloads** is an extension library for [GxHash](https://www.nuget.org/packages/GxHash) that provides a comprehensive set of overloads to compute 128-bit hashes on various data types: files, string, ReadOnlySpan(T), Span(T), T[], Stream.
+**GxHash.128bits.Overloads** is an extension library for [GxHash](https://github.com/ogxd/gxhash-csharp) that provides a comprehensive set of overloads to compute 128-bit hashes on various data types: files, string, ReadOnlySpan(T), Span(T), T[], List(T), Stream.
 
 ## Features
 
@@ -10,6 +10,7 @@
     - `Span<byte>` and `ReadOnlySpan<byte>`
     - Generic `Span<T>` and `ReadOnlySpan<T>` where `T : unmanaged`
     - Arrays `T[]` where `T : unmanaged`
+    - Lists `List<T>` where `T : unmanaged`
     - `Stream` instances
 - Optional seeding for all methods
 
@@ -91,6 +92,10 @@ public static class GxHash128
     // Array overloads
     public static UInt128 Hash128<T>(T[]? array) where T : unmanaged;
     public static UInt128 Hash128<T>(T[]? array, UInt128 seed) where T : unmanaged;
+    
+    // List overloads
+    public static UInt128 Hash128<T>(List<T>? list) where T : unmanaged
+    public static UInt128 Hash128<T>(List<T>? list, UInt128 seed) where T : unmanaged
     
     // Stream overload
     public static UInt128 Hash128(Stream stream, UInt128 seed);
