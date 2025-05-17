@@ -238,6 +238,29 @@ public static class GxHash128
     }
 
     /// <summary>
+    /// Hash a stream into an 128-bit unsigned integer.
+    /// </summary>
+    /// <param name="stream">The stream to calculate the hash for.</param>
+    /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
+    /// <returns>A 128-bit hash.</returns>
+    [SkipLocalsInit]
+    public static unsafe UInt128 Hash128(Stream stream, int bufferSize = 4096)
+    {
+        if (bufferSize <= 0) bufferSize = 4096;
+
+        UInt128 hash = default;
+        Span<byte> buffer = stackalloc byte[bufferSize];
+
+        int bytesRead;
+        while ((bytesRead = stream.Read(buffer)) > 0)
+        {
+            hash = Hash128(buffer.Slice(0, bytesRead), hash);
+        }
+
+        return hash;
+    }
+
+    /// <summary>
     /// Hash a stream into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="stream">The stream to calculate the hash for.</param>
