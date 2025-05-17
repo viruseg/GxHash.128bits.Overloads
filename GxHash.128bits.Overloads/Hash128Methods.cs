@@ -283,4 +283,31 @@ public static class GxHash128
 
         return hash;
     }
+
+    /// <summary>
+    /// Hash a <see cref="T"/> into an 128-bit unsigned integer.
+    /// </summary>
+    /// <param name="value">The struct to calculate the hash for.</param>
+    /// <typeparam name="T">The unmanaged type.</typeparam>
+    /// <returns>A 128-bit hash.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe UInt128 Hash128<T>(T value) where T : unmanaged
+    {
+        var structAsSpan = new ReadOnlySpan<byte>(&value, sizeof(T));
+        return GxHash.Hash128(structAsSpan, default);
+    }
+
+    /// <summary>
+    /// Hash a <see cref="T"/> into an 128-bit unsigned integer, using the given seed.
+    /// </summary>
+    /// <param name="value">The struct to calculate the hash for.</param>
+    /// <param name="seed">A 128-bit seed.</param>
+    /// <typeparam name="T">The unmanaged type.</typeparam>
+    /// <returns>A 128-bit hash.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe UInt128 Hash128<T>(T value, UInt128 seed) where T : unmanaged
+    {
+        var structAsSpan = new ReadOnlySpan<byte>(&value, sizeof(T));
+        return GxHash.Hash128(structAsSpan, seed);
+    }
 }

@@ -1,6 +1,6 @@
 # GxHash.128bits.Overloads
 
-**GxHash.128bits.Overloads** is an extension library for [GxHash](https://github.com/ogxd/gxhash-csharp) that provides a comprehensive set of overloads to compute 128-bit hashes on various data types: files, string, ReadOnlySpan(T), Span(T), T[], List(T), Stream.
+**GxHash.128bits.Overloads** is an extension library for [GxHash](https://github.com/ogxd/gxhash-csharp) that provides a comprehensive set of overloads to compute 128-bit hashes on various data types: files, string, ReadOnlySpan(T), Span(T), T[], List(T), Stream, T.
 
 ## Features
 
@@ -72,11 +72,11 @@ public static class GxHash128
     // File overloads
     public static UInt128 FileContentHash128(string filePath);
     public static UInt128 FileContentHash128(string filePath, UInt128 seed);
-    
+
     // String overloads
     public static UInt128 Hash128(string? str);
     public static UInt128 Hash128(string? str, UInt128 seed);
-    
+
     // Byte ReadOnlySpan overloads
     public static UInt128 Hash128(ReadOnlySpan<byte> buffer);
     public static UInt128 Hash128(ReadOnlySpan<byte> buffer, UInt128 seed);
@@ -88,17 +88,22 @@ public static class GxHash128
     public static UInt128 Hash128(Span<byte> buffer, UInt128 seed);
     public static UInt128 Hash128<T>(Span<T> buffer) where T : unmanaged;
     public static UInt128 Hash128<T>(Span<T> buffer, UInt128 seed) where T : unmanaged;
-    
+
     // Array overloads
     public static UInt128 Hash128<T>(T[]? array) where T : unmanaged;
     public static UInt128 Hash128<T>(T[]? array, UInt128 seed) where T : unmanaged;
-    
+
     // List overloads
     public static UInt128 Hash128<T>(List<T>? list) where T : unmanaged
     public static UInt128 Hash128<T>(List<T>? list, UInt128 seed) where T : unmanaged
-    
+
     // Stream overload
+    public static UInt128 Hash128(Stream stream);
     public static UInt128 Hash128(Stream stream, UInt128 seed);
+
+    // T overloads
+    public static unsafe UInt128 Hash128<T>(T value) where T : unmanaged
+    public static unsafe UInt128 Hash128<T>(T value, UInt128 seed) where T : unmanaged
 }
 
 ```
