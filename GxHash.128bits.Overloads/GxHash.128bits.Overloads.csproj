@@ -13,8 +13,6 @@
         <Copyright>Copyright (c) 2025 Denis Tulupov</Copyright>
         <Authors>Denis Tulupov</Authors>
         <PackageProjectUrl>https://github.com/viruseg/GxHash.128bits.Overloads</PackageProjectUrl>
-        <PackageLicense>LICENSE.md</PackageLicense>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/viruseg/GxHash.128bits.Overloads</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>GxHash, hash SIMD hash, fast hash, c-sharp, C#,</PackageTags>
@@ -24,8 +22,11 @@
             1.1.0: Added overloads for List.
             1.0.0: First version
         </PackageReleaseNotes>
-        <Version>1.2.0</Version>
-        <AssemblyVersion>1.2.0</AssemblyVersion>
+        <Version>1.2.1</Version>
+        <AssemblyVersion>1.2.1</AssemblyVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <IncludeContentInPack>true</IncludeContentInPack>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -37,7 +38,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="LICENSE.md" pack="true" PackagePath="." />
+        <None Include="../LICENSE" Pack="true" Visible="true" PackagePath="" />
+        <None Include="../README.md" Pack="true" Visible="true" PackagePath="" />
     </ItemGroup>
 
 </Project>
