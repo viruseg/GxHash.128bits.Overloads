@@ -194,6 +194,7 @@ public static class GxHash128
     /// Hash a array into an 128-bit unsigned integer.
     /// </summary>
     /// <param name="array">The array to calculate the hash for.</param>
+    /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     public static UInt128 Hash128<T>(T[]? array) where T : unmanaged
     {
@@ -207,6 +208,7 @@ public static class GxHash128
     /// </summary>
     /// <param name="array">The array to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
+    /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     public static UInt128 Hash128<T>(T[]? array, UInt128 seed) where T : unmanaged
     {
@@ -219,6 +221,7 @@ public static class GxHash128
     /// Hash a array into an 128-bit unsigned integer.
     /// </summary>
     /// <param name="list">The list to calculate the hash for.</param>
+    /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     public static UInt128 Hash128<T>(List<T>? list) where T : unmanaged
     {
@@ -232,6 +235,7 @@ public static class GxHash128
     /// </summary>
     /// <param name="list">The list to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
+    /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     public static UInt128 Hash128<T>(List<T>? list, UInt128 seed) where T : unmanaged
     {
