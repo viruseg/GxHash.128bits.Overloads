@@ -20,7 +20,7 @@ Install via NuGet:
 
 |Package|Download|
 |-|-|
-|GxHash.128bits.Overloads|[![NuGet](https://img.shields.io/nuget/v/GxHash.128bits.Overloads.svg)](https://www.nuget.org/packages/GxHash.128bits.Overloads)
+|GxHash.128bits.Overloads|[![NuGet](https://img.shields.io/nuget/v/GxHash.128bits.Overloads.svg)](https://www.nuget.org/packages/GxHash.128bits.Overloads) [![NuGet](https://img.shields.io/nuget/dt/GxHash.128bits.Overloads.svg)](https://www.nuget.org/packages/GxHash.128bits.Overloads)
 
 ```bash
 dotnet add package GxHash.128bits.Overloads
