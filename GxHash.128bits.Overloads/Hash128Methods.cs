@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace GxHash.Overloads;
 
+/// <summary>
+/// Methods for calculating 128-bit hashes.
+/// </summary>
 public static class GxHash128
 {
     private static FileStream OpenFileStreamWhenAvailable(string filePath, FileShare share)
