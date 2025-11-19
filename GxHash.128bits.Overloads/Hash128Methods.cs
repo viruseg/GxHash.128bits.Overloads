@@ -111,9 +111,9 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a span of <see cref="T"/> into an 128-bit unsigned integer.
+    /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer.
     /// </summary>
-    /// <param name="buffer">The span of <see cref="T"/> to calculate the hash for.</param>
+    /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -125,9 +125,9 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a span of <see cref="T"/> into an 128-bit unsigned integer, using the given seed.
+    /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
     /// </summary>
-    /// <param name="buffer">The span of <see cref="T"/> to calculate the hash for.</param>
+    /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
@@ -164,9 +164,9 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a span of <see cref="T"/> into an 128-bit unsigned integer.
+    /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer.
     /// </summary>
-    /// <param name="buffer">The span of <see cref="T"/> to calculate the hash for.</param>
+    /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -176,9 +176,9 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a span of <see cref="T"/> into an 128-bit unsigned integer, using the given seed.
+    /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
     /// </summary>
-    /// <param name="buffer">The span of <see cref="T"/> to calculate the hash for.</param>
+    /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
@@ -292,7 +292,7 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a <see cref="T"/> into an 128-bit unsigned integer.
+    /// Hash a <typeparamref name="T"/> into an 128-bit unsigned integer.
     /// </summary>
     /// <param name="value">The struct to calculate the hash for.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
@@ -305,7 +305,7 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a <see cref="T"/> into an 128-bit unsigned integer, using the given seed.
+    /// Hash a <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="value">The struct to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
