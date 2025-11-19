@@ -35,29 +35,70 @@ class Program
 {
     static void Main()
     {
-        // Hash a string
-        UInt128 hash1 = GxHash128.Hash128("Hello, World!");
-        Console.WriteLine($"String hash: {hash1}");
+        // Hash via extension methods
+        {
+            // Hash a string
+            UInt128 hash1 = "Hello, World!".Hash128();
+            Console.WriteLine($"String hash: {hash1}");
 
-        // Hash with custom seed
-        UInt128 seed = new UInt128(1234567890, 9876543210);
-        UInt128 hash2 = GxHash128.Hash128("Hello, World!", seed);
-        Console.WriteLine($"String hash with seed: {hash2}");
+            // Hash with custom seed
+            UInt128 seed = new UInt128(1234567890, 9876543210);
+            UInt128 hash2 = "Hello, World!".Hash128(seed);
+            Console.WriteLine($"String hash with seed: {hash2}");
 
-        // Hash a file
-        string path = "data.bin";
-        UInt128 fileHash = GxHash128.FileContentHash128(path);
-        Console.WriteLine($"File hash: {fileHash}");
+            // Hash a file
+            string path = "data.bin";
+            UInt128 fileHash = File.Hash128(path); // Only for .NET 10 and higher
+            Console.WriteLine($"File hash: {fileHash}");
 
-        // Hash a byte span
-        byte[] data = { 1, 2, 3, 4 };
-        UInt128 spanHash = GxHash128.Hash128((ReadOnlySpan<byte>)data);
-        Console.WriteLine($"Span hash: {spanHash}");
+            // Hash a byte span
+            byte[] data = [1, 2, 3, 4];
+            UInt128 spanHash = data.Hash128();
+            Console.WriteLine($"Span hash: {spanHash}");
 
-        // Hash a stream
-        using var stream = File.OpenRead(path);
-        UInt128 streamHash = GxHash128.Hash128(stream, seed);
-        Console.WriteLine($"Stream hash: {streamHash}");
+            // Hash a stream
+            using var stream = File.OpenRead(path);
+            UInt128 streamHash = stream.Hash128(seed);
+            Console.WriteLine($"Stream hash: {streamHash}");
+
+            // Hash of a simple type
+            long longValue = 1234567890;
+            Console.WriteLine($"Long hash: {longValue.Hash128()}");
+        }
+
+
+
+        // Hash via direct call
+        {
+            // Hash a string
+            UInt128 hash1 = GxHash128.Hash128("Hello, World!");
+            Console.WriteLine($"String hash: {hash1}");
+
+            // Hash with custom seed
+            UInt128 seed = new UInt128(1234567890, 9876543210);
+            UInt128 hash2 = GxHash128.Hash128("Hello, World!", seed);
+            Console.WriteLine($"String hash with seed: {hash2}");
+
+            // Hash a file
+            string path = "data.bin";
+            UInt128 fileHash = GxHash128.FileContentHash128(path);
+            Console.WriteLine($"File hash: {fileHash}");
+
+            // Hash a byte span
+            byte[] data = [1, 2, 3, 4];
+            UInt128 spanHash = GxHash128.Hash128((ReadOnlySpan<byte>) data);
+            Console.WriteLine($"Span hash: {spanHash}");
+
+            // Hash a stream
+            using var stream = File.OpenRead(path);
+            UInt128 streamHash = GxHash128.Hash128(stream, seed);
+            Console.WriteLine($"Stream hash: {streamHash}");
+
+            // Hash of a simple type
+            long longValue = 1234567890;
+            UInt128 longHash = GxHash128.Hash128(longValue);
+            Console.WriteLine($"Long hash: {longHash}");
+        }
     }
 }
 ```
