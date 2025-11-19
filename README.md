@@ -64,6 +64,10 @@ class Program
             // Hash of a simple type
             long longValue = 1234567890;
             Console.WriteLine($"Long hash: {longValue.Hash128()}");
+
+            // Hash of a struct
+            ExampleStruct structValue = new ExampleStruct();
+            Console.WriteLine($"Long hash: {structValue.Hash128()}");
         }
 
 
@@ -98,8 +102,19 @@ class Program
             long longValue = 1234567890;
             UInt128 longHash = GxHash128.Hash128(longValue);
             Console.WriteLine($"Long hash: {longHash}");
+
+            // Hash of a struct
+            ExampleStruct structValue = new ExampleStruct();
+            UInt128 structHash = GxHash128.Hash128(structValue);
+            Console.WriteLine($"Struct hash: {structHash}");
         }
     }
+}
+
+struct ExampleStruct
+{
+    public int intValue;
+    public long longValue;
 }
 ```
 
