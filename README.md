@@ -163,3 +163,6 @@ public static class GxHash128
 }
 
 ```
+
+## Memory Padding and Hash Consistency
+Unmanaged structures often contain padding bytes inserted by the compiler for memory alignment. These padding bytes are uninitialized and can contain arbitrary values from previous memory operations, causing identical logical data to produce different hash values. To ensure consistent hashing across different data sources and environments, it's essential to zero out padding bytes before hashing. For a detailed explanation of this issue and an automated solution, see the [StructPadding](https://github.com/viruseg/StructPadding), which provides high-performance clearing of padding bytes in unmanaged structures.
