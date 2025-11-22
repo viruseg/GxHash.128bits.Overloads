@@ -30,19 +30,6 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Computes a 128-bit unsigned integer hash for the content of a file.
-    /// </summary>
-    /// <param name="filePath">The path to the file to be hashed.</param>
-    /// <param name="bufferSize">The size of the buffer to use when reading the file. Default is 4096 bytes.</param>
-    /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 FileContentHash128(string filePath, int bufferSize = 4096, FileShare share = FileShare.Read)
-    {
-        return FileContentHash128(filePath, default, bufferSize, share);
-    }
-
-    /// <summary>
     /// Computes a 128-bit unsigned integer hash for the content of a file using a specified seed.
     /// </summary>
     /// <param name="filePath">The path to the file to be hashed.</param>
@@ -52,10 +39,7 @@ public static class GxHash128
     /// <returns>A 128-bit hash.</returns>
     public static UInt128 FileContentHash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
     {
-        if (!File.Exists(filePath)) return seed;
-
-        using var stream = OpenFileStreamWhenAvailableAsync(filePath, share, CancellationToken.None).Result;
-        return Hash128(stream, seed, bufferSize);
+        return FileContentHash128Async(filePath, seed, bufferSize, share).Result;
     }
 
     /// <summary>
