@@ -126,40 +126,78 @@ namespace GxHash.Overloads;
 public static class GxHash128
 {
     // File overloads
-    public static UInt128 FileContentHash128(string filePath);
-    public static UInt128 FileContentHash128(string filePath, UInt128 seed);
+    public static UInt128 FileContentHash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
+    public static async Task<UInt128> FileContentHash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
 
     // String overloads
-    public static UInt128 Hash128(string? str);
-    public static UInt128 Hash128(string? str, UInt128 seed);
+    public static UInt128 Hash128(string? str, UInt128 seed = default)
 
     // Byte ReadOnlySpan overloads
-    public static UInt128 Hash128(ReadOnlySpan<byte> buffer);
-    public static UInt128 Hash128(ReadOnlySpan<byte> buffer, UInt128 seed);
-    public static UInt128 Hash128<T>(ReadOnlySpan<T> buffer) where T : unmanaged;
-    public static UInt128 Hash128<T>(ReadOnlySpan<T> buffer, UInt128 seed) where T : unmanaged;
+    public static UInt128 Hash128(ReadOnlySpan<byte> buffer, UInt128 seed = default)
+    public static UInt128 Hash128<T>(ReadOnlySpan<T> buffer, UInt128 seed = default) where T : unmanaged
 
     // Byte Span overloads
-    public static UInt128 Hash128(Span<byte> buffer);
-    public static UInt128 Hash128(Span<byte> buffer, UInt128 seed);
-    public static UInt128 Hash128<T>(Span<T> buffer) where T : unmanaged;
-    public static UInt128 Hash128<T>(Span<T> buffer, UInt128 seed) where T : unmanaged;
+    public static UInt128 Hash128(Span<byte> buffer, UInt128 seed = default)
+    public static UInt128 Hash128<T>(Span<T> buffer, UInt128 seed = default) where T : unmanaged
 
     // Array overloads
-    public static UInt128 Hash128<T>(T[]? array) where T : unmanaged;
-    public static UInt128 Hash128<T>(T[]? array, UInt128 seed) where T : unmanaged;
+    public static UInt128 Hash128<T>(T[]? array, UInt128 seed = default) where T : unmanaged
 
     // List overloads
-    public static UInt128 Hash128<T>(List<T>? list) where T : unmanaged
-    public static UInt128 Hash128<T>(List<T>? list, UInt128 seed) where T : unmanaged
+    public static UInt128 Hash128<T>(List<T>? list, UInt128 seed = default) where T : unmanaged
 
     // Stream overload
-    public static UInt128 Hash128(Stream stream);
-    public static UInt128 Hash128(Stream stream, UInt128 seed);
+    public static UInt128 Hash128(Stream stream, UInt128 seed = default, int bufferSize = 4096)
+    public static async Task<UInt128> Hash128Async(Stream stream, UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
 
     // T overloads
-    public static unsafe UInt128 Hash128<T>(T value) where T : unmanaged
-    public static unsafe UInt128 Hash128<T>(T value, UInt128 seed) where T : unmanaged
+    public static unsafe UInt128 Hash128<T>(T value, UInt128 seed = default) where T : unmanaged
+}
+
+public static class Hash128Extension
+{
+    extension(File)
+    {
+        public static UInt128 Hash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
+        public static async Task<UInt128> Hash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
+    }
+    
+    extension(string? str)
+    {
+        public UInt128 Hash128(UInt128 seed = default)
+    }
+    
+    extension<T>(ReadOnlySpan<T> buffer) where T : unmanaged
+    {
+        public UInt128 Hash128(UInt128 seed = default)
+    }
+    
+    extension<T>(Span<T> buffer) where T : unmanaged
+    {
+        public UInt128 Hash128(UInt128 seed = default)
+    }
+    
+    extension<T>(T[]? array) where T : unmanaged
+    {
+        public UInt128 Hash128(UInt128 seed = default)
+    }
+    
+    extension<T>(List<T>? list) where T : unmanaged
+    {
+        public UInt128 Hash128(UInt128 seed = default)
+    }
+    
+    extension(Stream stream)
+    {
+        public UInt128 Hash128(UInt128 seed = default, int bufferSize = 4096)
+        
+        public async Task<UInt128> Hash128Async(UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
+    }
+    
+    extension<T>(T value) where T : unmanaged
+    {
+        public UInt128 Hash128(UInt128 seed = default)
+    }
 }
 
 ```
