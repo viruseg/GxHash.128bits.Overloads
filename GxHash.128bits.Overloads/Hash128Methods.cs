@@ -154,18 +154,6 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a stream into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="stream">The stream to calculate the hash for.</param>
-    /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128(Stream stream, int bufferSize = 4096)
-    {
-        return Hash128(stream, default, bufferSize);
-    }
-
-    /// <summary>
     /// Hash a stream into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="stream">The stream to calculate the hash for.</param>
