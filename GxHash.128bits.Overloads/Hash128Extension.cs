@@ -25,6 +25,21 @@ public static class Hash128Extension
         {
             return GxHash128.FileContentHash128(filePath, seed, bufferSize, share);
         }
+
+        /// <summary>
+        /// Computes a 128-bit unsigned integer hash for the content of a file using a specified seed.
+        /// </summary>
+        /// <param name="filePath">The path to the file to be hashed.</param>
+        /// <param name="seed">A 128-bit seed.</param>
+        /// <param name="bufferSize">The size of the buffer to use when reading the file. Default is 4096 bytes.</param>
+        /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
+        /// <returns>A 128-bit hash.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static async Task<UInt128> Hash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
+        {
+            return await GxHash128.FileContentHash128Async(filePath, seed, bufferSize, share, cancellationToken).ConfigureAwait(false);
+        }
     }
 
     /// <param name="str">The string to calculate the hash for.</param>
@@ -119,6 +134,19 @@ public static class Hash128Extension
         public UInt128 Hash128(UInt128 seed = default, int bufferSize = 4096)
         {
             return GxHash128.Hash128(stream, seed, bufferSize);
+        }
+
+        /// <summary>
+        /// Hash a stream into an 128-bit unsigned integer, using the given seed.
+        /// </summary>
+        /// <param name="seed">A 128-bit seed.</param>
+        /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
+        /// <returns>A 128-bit hash.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public async Task<UInt128> Hash128Async(UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        {
+            return await GxHash128.Hash128Async(stream, seed, bufferSize, cancellationToken).ConfigureAwait(false);
         }
     }
 

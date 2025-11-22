@@ -44,10 +44,18 @@ public class Tests
         testStruct.bytes[15] = 16;
         var structHash = GxHash128.Hash128(testStruct);
 
+        using var stream = new MemoryStream(arr);
+        var streamHash = GxHash128.Hash128(stream);
+
+        using var streamAsync = new MemoryStream(arr);
+        var streamHashAsync = GxHash128.Hash128Async(streamAsync).Result;
+
         using (Assert.EnterMultipleScope())
         {
             Assert.That(arrHash, Is.EqualTo(structHash));
             Assert.That(listHash, Is.EqualTo(structHash));
+            Assert.That(streamHash, Is.EqualTo(structHash));
+            Assert.That(streamHashAsync, Is.EqualTo(structHash));
         }
     }
 }
