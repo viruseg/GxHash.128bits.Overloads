@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GxHash.128bits.Overloads", "GxHash.128bits.Overloads\GxHash.128bits.Overloads.csproj", "{37A9D742-2020-4190-B8AB-ABEBBDCD4BD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GxHash.128bits.Overloads.Tests", "GxHash.128bits.Overloads.Tests\GxHash.128bits.Overloads.Tests.csproj", "{F26F7DA3-CF59-4387-98F3-C5CB45AF18C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{37A9D742-2020-4190-B8AB-ABEBBDCD4BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37A9D742-2020-4190-B8AB-ABEBBDCD4BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37A9D742-2020-4190-B8AB-ABEBBDCD4BD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F26F7DA3-CF59-4387-98F3-C5CB45AF18C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F26F7DA3-CF59-4387-98F3-C5CB45AF18C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F26F7DA3-CF59-4387-98F3-C5CB45AF18C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F26F7DA3-CF59-4387-98F3-C5CB45AF18C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
