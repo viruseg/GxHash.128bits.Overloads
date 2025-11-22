@@ -36,12 +36,10 @@ public static class GxHash128
     /// <param name="bufferSize">The size of the buffer to use when reading the file. Default is 4096 bytes.</param>
     /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
     /// <returns>A 128-bit hash.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UInt128 FileContentHash128(string filePath, int bufferSize = 4096, FileShare share = FileShare.Read)
     {
-        if (!File.Exists(filePath)) return default;
-
-        using var stream = OpenFileStreamWhenAvailable(filePath, share);
-        return Hash128(stream, default, bufferSize);
+        return FileContentHash128(filePath, default, bufferSize, share);
     }
 
     /// <summary>
@@ -52,7 +50,7 @@ public static class GxHash128
     /// <param name="bufferSize">The size of the buffer to use when reading the file. Default is 4096 bytes.</param>
     /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 FileContentHash128(string filePath, UInt128 seed, int bufferSize = 4096, FileShare share = FileShare.Read)
+    public static UInt128 FileContentHash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
     {
         if (!File.Exists(filePath)) return seed;
 
@@ -61,24 +59,12 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a given string into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="str">The string to calculate the hash for.</param>
-    /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128(string? str)
-    {
-        return string.IsNullOrEmpty(str)
-            ? default
-            : Hash128(str.AsSpan());
-    }
-
-    /// <summary>
     /// Hash a given string into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="str">The string to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128(string? str, UInt128 seed)
+    public static UInt128 Hash128(string? str, UInt128 seed = default)
     {
         return string.IsNullOrEmpty(str)
             ? seed
@@ -86,42 +72,17 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a span of bytes into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="buffer">The span of bytes to calculate the hash for.</param>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128(ReadOnlySpan<byte> buffer)
-    {
-        return Hash128(buffer, default);
-    }
-
-    /// <summary>
     /// Hash a span of bytes into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="buffer">The span of bytes to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
     /// <returns>A 128-bit hash.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128(ReadOnlySpan<byte> buffer, UInt128 seed)
+    public static UInt128 Hash128(ReadOnlySpan<byte> buffer, UInt128 seed = default)
     {
-        if (buffer.Length == 0) return seed;
-
-        return GxHash.Hash128(MemoryMarshal.AsBytes(buffer), seed);
-    }
-
-    /// <summary>
-    /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
-    /// <typeparam name="T">The unmanaged type.</typeparam>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128<T>(ReadOnlySpan<T> buffer) where T : unmanaged
-    {
-        if (buffer.Length == 0) return default;
-
-        return Hash128(MemoryMarshal.AsBytes(buffer), default);
+        return buffer.Length == 0
+            ? seed
+            : GxHash.Hash128(buffer, seed);
     }
 
     /// <summary>
@@ -132,22 +93,9 @@ public static class GxHash128
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128<T>(ReadOnlySpan<T> buffer, UInt128 seed) where T : unmanaged
+    public static UInt128 Hash128<T>(ReadOnlySpan<T> buffer, UInt128 seed = default) where T : unmanaged
     {
-        if (buffer.Length == 0) return seed;
-
-        return GxHash.Hash128(MemoryMarshal.AsBytes(buffer), seed);
-    }
-
-    /// <summary>
-    /// Hash a span of bytes into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="buffer">The span of bytes to calculate the hash for.</param>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128(Span<byte> buffer)
-    {
-        return Hash128(buffer, default);
+        return Hash128(MemoryMarshal.AsBytes(buffer), seed);
     }
 
     /// <summary>
@@ -156,51 +104,23 @@ public static class GxHash128
     /// <param name="buffer">The span of bytes to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128(Span<byte> buffer, UInt128 seed)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 Hash128(Span<byte> buffer, UInt128 seed = default)
     {
-        if (buffer.Length == 0) return seed;
-
         return Hash128(MemoryMarshal.CreateReadOnlySpan(ref MemoryMarshal.GetReference(buffer), buffer.Length), seed);
     }
 
     /// <summary>
-    /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
-    /// <typeparam name="T">The unmanaged type.</typeparam>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static UInt128 Hash128<T>(Span<T> buffer) where T : unmanaged
-    {
-        return Hash128(MemoryMarshal.AsBytes(buffer), default);
-    }
-
-    /// <summary>
     /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="buffer">The span of <typeparamref name="T"/> to calculate the hash for.</param>
     /// <param name="seed">A 128-bit seed.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128<T>(Span<T> buffer, UInt128 seed) where T : unmanaged
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 Hash128<T>(Span<T> buffer, UInt128 seed = default) where T : unmanaged
     {
-        if (buffer.Length == 0) return seed;
-
-        var asBytes = MemoryMarshal.AsBytes(buffer);
-        return Hash128(MemoryMarshal.CreateReadOnlySpan(ref MemoryMarshal.GetReference(asBytes), buffer.Length), seed);
-    }
-
-    /// <summary>
-    /// Hash a array into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="array">The array to calculate the hash for.</param>
-    /// <typeparam name="T">The unmanaged type.</typeparam>
-    /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128<T>(T[]? array) where T : unmanaged
-    {
-        if (array == null || array.Length == 0) return default;
-
-        return Hash128(array.AsSpan());
+        return Hash128(MemoryMarshal.AsBytes(buffer), seed);
     }
 
     /// <summary>
@@ -210,24 +130,12 @@ public static class GxHash128
     /// <param name="seed">A 128-bit seed.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128<T>(T[]? array, UInt128 seed) where T : unmanaged
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 Hash128<T>(T[]? array, UInt128 seed = default) where T : unmanaged
     {
-        if (array == null || array.Length == 0) return seed;
-
-        return Hash128(MemoryMarshal.AsBytes(array.AsSpan()), seed);
-    }
-
-    /// <summary>
-    /// Hash a array into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="list">The list to calculate the hash for.</param>
-    /// <typeparam name="T">The unmanaged type.</typeparam>
-    /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128<T>(List<T>? list) where T : unmanaged
-    {
-        if (list == null || list.Count == 0) return default;
-
-        return Hash128(MemoryMarshal.AsBytes(CollectionsMarshal.AsSpan(list)), default);
+        return array == null || array.Length == 0
+            ? seed
+            : Hash128(array.AsSpan(), seed);
     }
 
     /// <summary>
@@ -237,11 +145,12 @@ public static class GxHash128
     /// <param name="seed">A 128-bit seed.</param>
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 Hash128<T>(List<T>? list, UInt128 seed) where T : unmanaged
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 Hash128<T>(List<T>? list, UInt128 seed = default) where T : unmanaged
     {
-        if (list == null || list.Count == 0) return seed;
-
-        return Hash128(MemoryMarshal.AsBytes(CollectionsMarshal.AsSpan(list)), seed);
+        return list == null || list.Count == 0
+            ? seed
+            : Hash128(CollectionsMarshal.AsSpan(list), seed);
     }
 
     /// <summary>
@@ -250,21 +159,10 @@ public static class GxHash128
     /// <param name="stream">The stream to calculate the hash for.</param>
     /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
     /// <returns>A 128-bit hash.</returns>
-    [SkipLocalsInit]
-    public static unsafe UInt128 Hash128(Stream stream, int bufferSize = 4096)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 Hash128(Stream stream, int bufferSize = 4096)
     {
-        if (bufferSize <= 0) bufferSize = 4096;
-
-        UInt128 hash = default;
-        Span<byte> buffer = stackalloc byte[bufferSize];
-
-        int bytesRead;
-        while ((bytesRead = stream.Read(buffer)) > 0)
-        {
-            hash = Hash128(buffer.Slice(0, bytesRead), hash);
-        }
-
-        return hash;
+        return Hash128(stream, default, bufferSize);
     }
 
     /// <summary>
@@ -275,7 +173,7 @@ public static class GxHash128
     /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
     /// <returns>A 128-bit hash.</returns>
     [SkipLocalsInit]
-    public static unsafe UInt128 Hash128(Stream stream, UInt128 seed, int bufferSize = 4096)
+    public static UInt128 Hash128(Stream stream, UInt128 seed = default, int bufferSize = 4096)
     {
         if (bufferSize <= 0) bufferSize = 4096;
 
@@ -292,19 +190,6 @@ public static class GxHash128
     }
 
     /// <summary>
-    /// Hash a <typeparamref name="T"/> into an 128-bit unsigned integer.
-    /// </summary>
-    /// <param name="value">The struct to calculate the hash for.</param>
-    /// <typeparam name="T">The unmanaged type.</typeparam>
-    /// <returns>A 128-bit hash.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe UInt128 Hash128<T>(T value) where T : unmanaged
-    {
-        var structAsSpan = new ReadOnlySpan<byte>(&value, sizeof(T));
-        return GxHash.Hash128(structAsSpan, default);
-    }
-
-    /// <summary>
     /// Hash a <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
     /// </summary>
     /// <param name="value">The struct to calculate the hash for.</param>
@@ -312,7 +197,7 @@ public static class GxHash128
     /// <typeparam name="T">The unmanaged type.</typeparam>
     /// <returns>A 128-bit hash.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe UInt128 Hash128<T>(T value, UInt128 seed) where T : unmanaged
+    public static unsafe UInt128 Hash128<T>(T value, UInt128 seed = default) where T : unmanaged
     {
         var structAsSpan = new ReadOnlySpan<byte>(&value, sizeof(T));
         return GxHash.Hash128(structAsSpan, seed);
