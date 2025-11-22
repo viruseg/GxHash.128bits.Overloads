@@ -13,19 +13,6 @@ public static class Hash128Extension
     extension(File)
     {
         /// <summary>
-        /// Computes a 128-bit unsigned integer hash for the content of a file.
-        /// </summary>
-        /// <param name="filePath">The path to the file to be hashed.</param>
-        /// <param name="bufferSize">The size of the buffer to use when reading the file. Default is 4096 bytes.</param>
-        /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt128 Hash128(string filePath, int bufferSize = 4096, FileShare share = FileShare.Read)
-        {
-            return GxHash128.FileContentHash128(filePath, bufferSize, share);
-        }
-
-        /// <summary>
         /// Computes a 128-bit unsigned integer hash for the content of a file using a specified seed.
         /// </summary>
         /// <param name="filePath">The path to the file to be hashed.</param>
@@ -34,7 +21,7 @@ public static class Hash128Extension
         /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt128 Hash128(string filePath, UInt128 seed, int bufferSize = 4096, FileShare share = FileShare.Read)
+        public static UInt128 Hash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
         {
             return GxHash128.FileContentHash128(filePath, seed, bufferSize, share);
         }
@@ -44,22 +31,12 @@ public static class Hash128Extension
     extension(string? str)
     {
         /// <summary>
-        /// Hash a given string into an 128-bit unsigned integer.
-        /// </summary>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128()
-        {
-            return GxHash128.Hash128(str);
-        }
-
-        /// <summary>
         /// Hash a given string into an 128-bit unsigned integer, using the given seed.
         /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed)
+        public UInt128 Hash128(UInt128 seed = default)
         {
             return GxHash128.Hash128(str, seed);
         }
@@ -70,22 +47,12 @@ public static class Hash128Extension
     extension<T>(ReadOnlySpan<T> buffer) where T : unmanaged
     {
         /// <summary>
-        /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer.
-        /// </summary>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128()
-        {
-            return GxHash128.Hash128(buffer);
-        }
-
-        /// <summary>
         /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
         /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed)
+        public UInt128 Hash128(UInt128 seed = default)
         {
             return GxHash128.Hash128(buffer, seed);
         }
@@ -96,22 +63,12 @@ public static class Hash128Extension
     extension<T>(Span<T> buffer) where T : unmanaged
     {
         /// <summary>
-        /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer.
-        /// </summary>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128()
-        {
-            return GxHash128.Hash128(buffer);
-        }
-
-        /// <summary>
         /// Hash a span of <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
         /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed)
+        public UInt128 Hash128(UInt128 seed = default)
         {
             return GxHash128.Hash128(buffer, seed);
         }
@@ -124,20 +81,10 @@ public static class Hash128Extension
         /// <summary>
         /// Hash a array into an 128-bit unsigned integer, using the given seed.
         /// </summary>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128()
-        {
-            return GxHash128.Hash128(array);
-        }
-
-        /// <summary>
-        /// Hash a array into an 128-bit unsigned integer, using the given seed.
-        /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed)
+        public UInt128 Hash128(UInt128 seed = default)
         {
             return GxHash128.Hash128(array, seed);
         }
@@ -148,22 +95,12 @@ public static class Hash128Extension
     extension<T>(List<T>? list) where T : unmanaged
     {
         /// <summary>
-        /// Hash a array into an 128-bit unsigned integer.
-        /// </summary>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128()
-        {
-            return GxHash128.Hash128(list);
-        }
-
-        /// <summary>
         /// Hash a list into an 128-bit unsigned integer, using the given seed.
         /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed)
+        public UInt128 Hash128(UInt128 seed = default)
         {
             return GxHash128.Hash128(list, seed);
         }
@@ -173,24 +110,13 @@ public static class Hash128Extension
     extension(Stream stream)
     {
         /// <summary>
-        /// Hash a stream into an 128-bit unsigned integer.
-        /// </summary>
-        /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(int bufferSize = 4096)
-        {
-            return GxHash128.Hash128(stream, bufferSize);
-        }
-
-        /// <summary>
         /// Hash a stream into an 128-bit unsigned integer, using the given seed.
         /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed, int bufferSize = 4096)
+        public UInt128 Hash128(UInt128 seed = default, int bufferSize = 4096)
         {
             return GxHash128.Hash128(stream, seed, bufferSize);
         }
@@ -201,22 +127,12 @@ public static class Hash128Extension
     extension<T>(T value) where T : unmanaged
     {
         /// <summary>
-        /// Hash a <typeparamref name="T"/> into an 128-bit unsigned integer.
-        /// </summary>
-        /// <returns>A 128-bit hash.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128()
-        {
-            return GxHash128.Hash128(value);
-        }
-
-        /// <summary>
         /// Hash a <typeparamref name="T"/> into an 128-bit unsigned integer, using the given seed.
         /// </summary>
         /// <param name="seed">A 128-bit seed.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed)
+        public UInt128 Hash128(UInt128 seed = default)
         {
             return GxHash128.Hash128(value, seed);
         }
