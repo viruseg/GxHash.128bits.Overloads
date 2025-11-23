@@ -126,8 +126,8 @@ namespace GxHash.Overloads;
 public static class GxHash128
 {
     // File overloads
-    public static UInt128 FileContentHash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
-    public static async Task<UInt128> FileContentHash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
+    public static UInt128 FileContentHash128(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read)
+    public static async Task<UInt128> FileContentHash128Async(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
 
     // String overloads
     public static UInt128 Hash128(string? str, UInt128 seed = default)
@@ -147,8 +147,8 @@ public static class GxHash128
     public static UInt128 Hash128<T>(List<T>? list, UInt128 seed = default) where T : unmanaged
 
     // Stream overload
-    public static UInt128 Hash128(Stream stream, UInt128 seed = default, int bufferSize = 4096)
-    public static async Task<UInt128> Hash128Async(Stream stream, UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
+    public static UInt128 Hash128(Stream stream, int bufferSize = 4096, UInt128 seed = default)
+    public static async Task<UInt128> Hash128Async(Stream stream, int bufferSize = 4096, UInt128 seed = default, CancellationToken cancellationToken = default)
 
     // T overloads
     public static unsafe UInt128 Hash128<T>(T value, UInt128 seed = default) where T : unmanaged
@@ -158,8 +158,8 @@ public static class Hash128Extension
 {
     extension(File)
     {
-        public static UInt128 Hash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
-        public static async Task<UInt128> Hash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
+        public static UInt128 Hash128(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read)
+        public static async Task<UInt128> Hash128Async(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
     }
     
     extension(string? str)
@@ -189,9 +189,9 @@ public static class Hash128Extension
     
     extension(Stream stream)
     {
-        public UInt128 Hash128(UInt128 seed = default, int bufferSize = 4096)
+        public UInt128 Hash128(int bufferSize = 4096, UInt128 seed = default)
         
-        public async Task<UInt128> Hash128Async(UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        public async Task<UInt128> Hash128Async(int bufferSize = 4096, UInt128 seed = default, CancellationToken cancellationToken = default)
     }
     
     extension<T>(T value) where T : unmanaged
