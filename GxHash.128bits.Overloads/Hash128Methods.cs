@@ -37,9 +37,9 @@ public static class GxHash128
     /// <param name="bufferSize">The size of the buffer to use when reading the file. Default is 4096 bytes.</param>
     /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
     /// <returns>A 128-bit hash.</returns>
-    public static UInt128 FileContentHash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
+    public static UInt128 FileContentHash128(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read)
     {
-        return FileContentHash128Async(filePath, seed, bufferSize, share).Result;
+        return FileContentHash128Async(filePath, bufferSize, seed, share).Result;
     }
 
     /// <summary>
@@ -51,12 +51,12 @@ public static class GxHash128
     /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
     /// <returns>A 128-bit hash.</returns>
-    public static async Task<UInt128> FileContentHash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
+    public static async Task<UInt128> FileContentHash128Async(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
     {
         if (!File.Exists(filePath)) return seed;
 
         await using var stream = await OpenFileStreamWhenAvailableAsync(filePath, share, cancellationToken).ConfigureAwait(false);
-        return await Hash128Async(stream, seed, bufferSize, cancellationToken).ConfigureAwait(false);
+        return await Hash128Async(stream, bufferSize, seed, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -162,7 +162,7 @@ public static class GxHash128
     /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
     /// <returns>A 128-bit hash.</returns>
     [SkipLocalsInit]
-    public static UInt128 Hash128(Stream stream, UInt128 seed = default, int bufferSize = 4096)
+    public static UInt128 Hash128(Stream stream, int bufferSize = 4096, UInt128 seed = default)
     {
         if (bufferSize <= 0) bufferSize = 4096;
 
@@ -187,7 +187,7 @@ public static class GxHash128
     /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
     /// <returns>A 128-bit hash.</returns>
     [SkipLocalsInit]
-    public static async Task<UInt128> Hash128Async(Stream stream, UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
+    public static async Task<UInt128> Hash128Async(Stream stream, int bufferSize = 4096, UInt128 seed = default, CancellationToken cancellationToken = default)
     {
         if (bufferSize <= 0) bufferSize = 4096;
 

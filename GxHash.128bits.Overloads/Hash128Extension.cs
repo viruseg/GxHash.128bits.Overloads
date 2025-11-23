@@ -21,9 +21,9 @@ public static class Hash128Extension
         /// <param name="share">The file sharing mode. Default is <see cref="FileShare.Read"/>.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt128 Hash128(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read)
+        public static UInt128 Hash128(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read)
         {
-            return GxHash128.FileContentHash128(filePath, seed, bufferSize, share);
+            return GxHash128.FileContentHash128(filePath, bufferSize, seed, share);
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ public static class Hash128Extension
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static async Task<UInt128> Hash128Async(string filePath, UInt128 seed = default, int bufferSize = 4096, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
+        public static async Task<UInt128> Hash128Async(string filePath, int bufferSize = 4096, UInt128 seed = default, FileShare share = FileShare.Read, CancellationToken cancellationToken = default)
         {
-            return await GxHash128.FileContentHash128Async(filePath, seed, bufferSize, share, cancellationToken).ConfigureAwait(false);
+            return await GxHash128.FileContentHash128Async(filePath, bufferSize, seed, share, cancellationToken).ConfigureAwait(false);
         }
     }
 
@@ -131,9 +131,9 @@ public static class Hash128Extension
         /// <param name="bufferSize">The size of the buffer to use for reading from the stream. Defaults to 4096.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public UInt128 Hash128(UInt128 seed = default, int bufferSize = 4096)
+        public UInt128 Hash128(int bufferSize = 4096, UInt128 seed = default)
         {
-            return GxHash128.Hash128(stream, seed, bufferSize);
+            return GxHash128.Hash128(stream, bufferSize, seed);
         }
 
         /// <summary>
@@ -144,9 +144,9 @@ public static class Hash128Extension
         /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="CancellationToken.None"/>.</param>
         /// <returns>A 128-bit hash.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public async Task<UInt128> Hash128Async(UInt128 seed = default, int bufferSize = 4096, CancellationToken cancellationToken = default)
+        public async Task<UInt128> Hash128Async(int bufferSize = 4096, UInt128 seed = default, CancellationToken cancellationToken = default)
         {
-            return await GxHash128.Hash128Async(stream, seed, bufferSize, cancellationToken).ConfigureAwait(false);
+            return await GxHash128.Hash128Async(stream, bufferSize, seed, cancellationToken).ConfigureAwait(false);
         }
     }
 
