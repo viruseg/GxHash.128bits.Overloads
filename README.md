@@ -58,7 +58,7 @@ class Program
 
             // Hash a stream
             using var stream = File.OpenRead(path);
-            UInt128 streamHash = stream.Hash128(seed);
+            UInt128 streamHash = stream.Hash128(seed: seed);
             Console.WriteLine($"Stream hash: {streamHash}");
 
             // Hash of a simple type
